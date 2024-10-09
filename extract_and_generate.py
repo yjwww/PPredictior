@@ -82,11 +82,12 @@ tpcdstables = ["catalog_sales", "catalog_returns", "store_sales", "store_returns
 imdbtables = ["aka_name","aka_title","cast_info","char_name","comp_cast_type","company_name","company_type","complete_cast","info_type",
               "keyword","kind_type","link_type","movie_companies","movie_info","movie_info_idx","movie_keyword","movie_link",
               "name","person_info","role_type","title"]
-master_host = [11,111]
-seg_host = {"231":[11,111],"233":[11,111],"235":[11,111]}
-operator = [ "Seq Scan","Hash","Hash Join","Aggregate", "Result","Sort","Nested Loop"]
+master_host = [11,111,11,11] # CPU cores, memory size, disk pool size, and network bandwidth.
+seg_host = {"231":[11,111,11,11],"233":[11,111,11,11],"235":[11,111,11,11]}
+operator = [ "Seq Scan","Hash","Hash Join","Aggregate", "Result","Sort","Nested Loop"] # greenplum's operators
 motion = ["Redistribute Motion", "Broadcast Motion"]
-
+# shared_buffers , work_mem , gp_max_packet_size, max_connections , random_page_cost and seq_page_cost
+parameter = {0:[1,1,1,1,1,1],1:[1,1,1,1,1,1],2:[1,1,1,1,1,1],3:[1,1,1,1,1,1]} # segment_id:[paraemter_value]
 # actual runtime:  actuall executed (training data) / estimated by our model
 # operators in the same plan can have data conflicts (parallel)
 def compute_cost(node):
