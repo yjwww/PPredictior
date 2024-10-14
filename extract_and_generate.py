@@ -135,9 +135,9 @@ def get_tables(tree):
 
 
 def get_nodes_from_tables(tables, type):
-    # segment_table: 1.属于哪个表（表的属性） 2.属于哪个服务器（服务器的属性） 3.segment的配置 4。分区表的属性（分区方法，行数）
+    # segment_table: 1.属于哪个表（表的属性） 2.属于哪个服务器（服务器的属性） 3.segment的配置 4.分区表的属性（分区方法，行数）
 
-    n = 18
+    n = 9
     nodes_matrix =  {}
 
     Vtable_root = type.get("root").get("id")
@@ -151,10 +151,7 @@ def get_nodes_from_tables(tables, type):
     for table in tables:
         for i in range(1, n + 1):
             Vtable = type.get(table).get("id")
-            if i >= n-8:
-                VrecordCount = type.get(table).get("records")[0]
-            else:
-                VrecordCount = type.get(table).get("records")[i-1]
+            VrecordCount = type.get(table).get("records")[i-1]
             Vdistribute = type.get(table).get("distribute")
 
             if i < 4:
@@ -179,7 +176,7 @@ def get_edge_extract_plan(tree,  edge_matrix, nodes_matrix, tables, type):
     nodes_list = list(nodes_matrix.keys())
     topology = ["001","010","100"] # 备份、同一个表、同一服务器
     adjacency_matrix = []
-    num = 18
+    num = 9
     # 静态关系
     for node1 in nodes_matrix.keys():
         index1 = nodes_list.index(node1)
